@@ -1,4 +1,20 @@
-const currentRole = "student"; // khai bao bien hien tai - gia su hieu truong da dang nhap
+let currentRole = "admin"; // khai báo biến hiện tại
+// 1. Hàm xử lý Dropdown
+function toggleDropdown() {
+  document.getElementById("roleSelector").classList.toggle("hidden");
+}
+
+// Khi chọn role mới từ dropdown
+function changeCurrentRole(selectEl) {
+  currentRole = selectEl.value; // cập nhật biến role hiện tại = giá trị vừa chọn từ dropdown
+  document.getElementById("roleLabel").textContent = currentRole; // cập nhật lại chữ hiển thị bên dưới tên
+  document.getElementById("roleSelector").classList.add("hidden"); // ẩn lại dropdown sau khi chọn
+  // Gọi lại các hàm xử lý phân quyền dựa theo vai trò mới
+  checkPermissions(); // kiểm tra và ẩn/hiện các phần tử HTML theo quyền của role mới
+  restrictedClick(); // gắn lại sự kiện click cho các phần tử có kiểm soát quyền
+}
+
+// 2a. Khai báo phân quyền
 const rolePermissions = {
   //danh sách quyền tương ứng với vai trò
   admin: [
@@ -18,7 +34,7 @@ const rolePermissions = {
     "STU-SCH10", // quản lý học phí
   ],
 };
-// tìm vai trò được phép dùng mã quyền đó
+// 2b.Tìm vai trò được phép dùng mã quyền đó
 function allowedRole(roleCode) {
   // roleCode là mã quyền muốn kiểm tra (RolePermissions)
   const roles = Object.keys(rolePermissions); // lấy danh sách các vai trò trong rolePermissions
@@ -31,7 +47,7 @@ function allowedRole(roleCode) {
   return "người có quyền";
 }
 
-//hàm kiểm tra xem quyền có ứng với ds đã cung cấp hay không
+//2c. Hàm kiểm tra xem quyền có ứng với ds đã cung cấp hay không
 function checkPermissions() {
   let role; // khai 1 biến để gán với ds quyền tương ứng với role
   // kiểm tra xem role hiện tại có trong rolepermisson hay không
@@ -106,7 +122,8 @@ function restrictedClick() {
     });
   }
 }
-// Gọi thêm hàm handleRestrictedClicks khi trang load
+
+// 3. Gọi cách hàm khi trang load
 window.onload = function () {
   checkPermissions();
   restrictedClick();

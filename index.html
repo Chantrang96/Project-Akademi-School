@@ -1299,10 +1299,30 @@
               />
             </svg>
           </div>
-          <div class="cursor-pointer flex justify-center items-center flex-col">
+          <!--Tạo Toogle Dropdown để lựa chọn role phù hợp-->
+          <div
+            id="roleBox"
+            class="cursor-pointer flex justify-center items-center flex-col"
+          >
             <p class="text-[14px] font-bold">Nabila.</p>
-            <p class="text-[14px] text-[#A098AE]">admin</p>
+            <p
+              id="roleLabel"
+              onclick="toggleDropdown()"
+              class="text-[14px] text-[#A098AE]"
+            >
+              admin
+            </p>
           </div>
+          <!--Thêm lựa chọn về Role-->
+          <select
+            id="roleSelector"
+            class="hidden mt-2 border rounded px-2 py-1 text-sm"
+            onchange="changeCurrentRole(this)"
+          >
+            <option value="admin">Admin</option>
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+          </select>
           <svg
             width="60"
             height="60"
